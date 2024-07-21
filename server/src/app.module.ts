@@ -6,9 +6,11 @@ import { RoomsMiddleware } from './rooms/rooms.middleware';
 import { RoomsService } from './rooms/rooms.service';
 import { PrismaService } from './prisma.service';
 import { MessagesModule } from './messages/messages.module';
+import { WebsocketGateway } from './websocket/websocket.gateway';
+import { WebsocketModule } from './websocket/websocket.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, RoomsModule, MessagesModule],
+  imports: [UsersModule, AuthModule, RoomsModule, MessagesModule, WebsocketModule],
   controllers: [],
   providers: [RoomsService, PrismaService],
 })
