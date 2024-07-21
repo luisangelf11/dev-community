@@ -5,9 +5,10 @@ import { RoomsModule } from './rooms/rooms.module';
 import { RoomsMiddleware } from './rooms/rooms.middleware';
 import { RoomsService } from './rooms/rooms.service';
 import { PrismaService } from './prisma.service';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, RoomsModule],
+  imports: [UsersModule, AuthModule, RoomsModule, MessagesModule],
   controllers: [],
   providers: [RoomsService, PrismaService],
 })
