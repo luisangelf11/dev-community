@@ -51,4 +51,22 @@ export class MessagesService {
                 throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
+
+    async deleteMessage(id: number){
+        try{
+            const messageDeleted = await this.prisma.message.delete({
+                where:{
+                    id
+                }
+            })
+            if(!messageDeleted) throw new NotFoundException(`The message with id ${id} is not found`)
+            return messageDeleted;
+        }
+        catch(error){
+            if(error instanceof NotFoundException)
+                throw new NotFoundException(error.message)
+            if(error instanceof Error)
+                throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
 }
