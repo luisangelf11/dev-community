@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { authLogin } from "../services/auth";
 import { IFormAuth } from "../interfaces/auth";
 import { styleForm, styleInput, styleLabel, styleTitle } from "../../config/styleForms";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const initialState: IFormAuth = {
@@ -25,7 +26,7 @@ export default function LoginForm() {
        setForm(initialState)
     } catch (error) {
       if(error instanceof Error)
-      console.error(error)
+        toast.error('Invalid credentials: Username or password is incorrect!')
     }
   };
  
@@ -47,6 +48,7 @@ export default function LoginForm() {
         placeholder="Insert your username"
         onChange={handleChange}
         className={styleInput}
+        required
       />
       <label htmlFor="password" className={styleLabel}>
         Password:
@@ -59,6 +61,7 @@ export default function LoginForm() {
         placeholder="Insert your password"
         onChange={handleChange}
         className={styleInput}
+        required
       />
       <button className="text-white p-1 w-[60%] bg-green-800 transition-all hover:bg-green-700 rounded-sm text-xs uppercase font-semibold">
         Sign in

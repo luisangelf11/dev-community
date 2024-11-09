@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { styleForm, styleInput, styleLabel, styleTitle } from "../../config/styleForms";
 import { IFormRegister } from "../interfaces/auth";
 import { authRegister } from "../services/auth";
+import {toast} from 'react-hot-toast'
 
 export default function RegisterForm() {
   const initialState: IFormRegister = {
@@ -24,9 +25,10 @@ export default function RegisterForm() {
     try {
         await authRegister(form);
         setForm(initialState)
+        toast.success('Your account was created successfully')
     } catch (error) {
         if(error instanceof Error)
-            console.error(error)
+            toast.error("Error to create the account")
     }
   }
   return (
