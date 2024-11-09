@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { authLogin } from "../../services/auth";
-import { IFormAuth } from "../../interfaces/auth";
+import { authLogin } from "../services/auth";
+import { IFormAuth } from "../interfaces/auth";
 import { styleForm, styleInput, styleLabel, styleTitle } from "../../config/styleForms";
 
 export default function LoginForm() {

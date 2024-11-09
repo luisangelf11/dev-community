@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { styleForm, styleInput, styleLabel, styleTitle } from "../../config/styleForms";
-import { IFormRegister } from "../../interfaces/auth";
+import { IFormRegister } from "../interfaces/auth";
+import { authRegister } from "../services/auth";
 
 export default function RegisterForm() {
   const initialState: IFormRegister = {
@@ -18,8 +19,15 @@ export default function RegisterForm() {
     });
   };
   //Submit event
-  const handleSubmit=(event: FormEvent)=>{
+  const handleSubmit=async(event: FormEvent)=>{
     event.preventDefault();
+    try {
+        await authRegister(form);
+        setForm(initialState)
+    } catch (error) {
+        if(error instanceof Error)
+            console.error(error)
+    }
   }
   return (
     <form className={styleForm} onSubmit={handleSubmit}>
@@ -35,6 +43,7 @@ export default function RegisterForm() {
         className={styleInput}
         value={form.name}
         onChange={handleChange}
+        required
       />
       <label htmlFor="lastname" className={styleLabel}>
         Lastname:
@@ -47,6 +56,7 @@ export default function RegisterForm() {
         placeholder="Insert your lastname"
         value={form.lastname}
         onChange={handleChange}
+        required
       />
       <label htmlFor="username" className={styleLabel}>
         Username:
@@ -59,6 +69,7 @@ export default function RegisterForm() {
         placeholder="Insert your username"
         value={form.username}
         onChange={handleChange}
+        required
       />
       <label htmlFor="password" className={styleLabel}>
         Password:
@@ -71,6 +82,7 @@ export default function RegisterForm() {
         placeholder="Insert your password"
         value={form.password}
         onChange={handleChange}
+        required
       />
       <button className="text-white p-1 w-[60%] bg-blue-800 transition-all hover:bg-blue-700 rounded-sm text-xs uppercase font-semibold">
         Sign Up
