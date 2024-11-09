@@ -6,7 +6,10 @@ import { BrowserRouter as MainRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MainRouter>
+    <MainRouter future={{
+      v7_relativeSplatPath: true,
+      v7_startTransition: true
+    }}>
       <App />
     </MainRouter>
   </React.StrictMode>

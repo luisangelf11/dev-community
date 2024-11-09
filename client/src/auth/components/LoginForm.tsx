@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { authLogin } from "../../services/auth";
 import { IFormAuth } from "../../interfaces/auth";
+import { styleForm, styleInput, styleLabel, styleTitle } from "../../config/styleForms";
 
 export default function LoginForm() {
   const initialState: IFormAuth = {
@@ -24,20 +25,17 @@ export default function LoginForm() {
        setForm(initialState)
     } catch (error) {
       if(error instanceof Error)
-      console.log(error.message)
+      console.error(error)
     }
   };
-  //Styles
-  const styleInput =
-    "p-2 outline-none text-xs rounded-sm border transition-all focus:border-2 focus:border-blue-600 w-[80%]";
-  const styleLabel = "font-semibold text-xs text-gray-800 w-[80%] text-left";
+ 
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center w-[300px] border p-4 rounded-md gap-2"
+      className={styleForm}
     >
-      <h2 className="text-xl uppercase text-gray-800 font-semibold">Login</h2>
+      <h2 className={styleTitle}>Login</h2>
       <label htmlFor="username" className={styleLabel}>
         Username:
       </label>
@@ -62,7 +60,7 @@ export default function LoginForm() {
         onChange={handleChange}
         className={styleInput}
       />
-      <button className="text-white p-1 w-[60%] bg-green-800 transition-all hover:bg-green-700 rounded-md text-xs uppercase font-semibold">
+      <button className="text-white p-1 w-[60%] bg-green-800 transition-all hover:bg-green-700 rounded-sm text-xs uppercase font-semibold">
         Sign in
       </button>
     </form>
