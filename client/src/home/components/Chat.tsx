@@ -26,16 +26,16 @@ export default function Chat({ roomId }: Props) {
 
   const { auth } = useStore();
 
-  const scrollContainer =()=>{
-    setTimeout(()=>{
+  const scrollContainer = () => {
+    setTimeout(() => {
       if (containerRef.current) {
         containerRef.current.scrollTo({
           top: containerRef.current.scrollHeight,
-          behavior: "smooth" // Animación suave
+          behavior: "smooth", // Animación suave
         });
       }
-    },300)
-  }
+    }, 300);
+  };
 
   const getRoomData = useCallback(async () => {
     try {
@@ -96,7 +96,10 @@ export default function Chat({ roomId }: Props) {
       <div className="w-full flex justify-center items-center p-2">
         <h3 className="uppercase font-semibold text-stone-900">{room?.room}</h3>
       </div>
-      <div className=" w-full h-[85%] bg-neutral-100 overflow-auto p-2 new-scroll transition-all" ref={containerRef}>
+      <div
+        className=" w-full h-[85%] bg-neutral-100 overflow-auto p-2 new-scroll transition-all"
+        ref={containerRef}
+      >
         {room?.messages.length ? (
           room?.messages.map((el) => (
             <Message
