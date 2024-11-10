@@ -27,17 +27,7 @@ export class WebsocketGateway
   server: Server;
 
   async handleConnection(client: Socket) {
-    const token = client.handshake.headers.authorization;
-    if (!token) {
-      client.disconnect();
-      return;
-    }
-    const jwtEncode = token.split(' ')[1];
-    const decoded = await this.jwt.verifyAsync(jwtEncode, {
-      secret: 'SECRET_KEY',
-    });
-    client.data.user = decoded;
-    console.log(`Client connected: ${client.id}`, client.data.user);
+    console.log(`Client connected: ${client.id}`);
   }
 
   handleDisconnect(client: Socket) {
@@ -47,15 +37,15 @@ export class WebsocketGateway
   @SubscribeMessage('message')
   async handleMessage(
     @ConnectedSocket() client: Socket,
-    @MessageBody() data: CreateMessageDto,
+    @MessageBody() data: {roomId: number, message: string, userId: number},
   ) {
     client.broadcast.emit(
       'messageServer',
-      `${client.data.user.username}: ${data.message}`,
+      `${client.id}: ${data.message}`,
     );
     await this.messageServices.createMessage(
       { message: data.message, roomId: data.roomId },
-      client.data.user.sub,
+      data.userId,
     );
   }
 }

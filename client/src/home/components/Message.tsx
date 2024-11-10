@@ -29,7 +29,7 @@ export default function Message({message, create_at, userId}: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   return (
-    <div className={`flex flex-col gap-2 w-[80%] ${userId === auth?.userId ? 'bg-blue-500' : 'bg-stone-500'} rounded-md p-2`}>
+    <div className={`flex flex-col gap-2 w-[80%] ${userId === auth?.userId ? 'bg-blue-500' : 'bg-stone-500'} rounded-md p-2 mx-auto mt-2`}>
         <span className="text-xs font-semibold uppercase">{userId === auth?.userId ? 'Me' : user?.username}</span>
         <p className="text-sm">{message}</p>
         <span className="text-xs">{getEasyDate(new Date(create_at))} - {getEasyTime(new Date(create_at))}</span>

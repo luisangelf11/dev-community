@@ -15,7 +15,6 @@ export const useRooms = () => {
   const getData = async () => {
     try {
       const { data } = await getRooms(auth?.token ?? "");
-      console.log(data);
       setRooms(data);
     } catch (error) {
       if (error instanceof Error) console.error(error);
