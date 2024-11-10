@@ -6,8 +6,8 @@ export default function Home() {
   const [room, setRoom] = useState<number>(3)
   const openRoom = (id: number)=> setRoom(id)
   return (
-    <section className="flex justify-center items-center w-full h-screen bg-neutral-600">
-      <article className="w-[70%] h-[500px] flex justify-center items-center shadow-xl">
+    <section className="flex justify-center items-center w-full h-screen">
+      <article className="w-full h-full  flex justify-center items-center">
         <Menu openRoom={openRoom} />
         <Chat roomId={room}/>
       </article>

@@ -3,6 +3,7 @@ import {
   FormEvent,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { IRoom } from "../interface/rooms";
@@ -21,8 +22,20 @@ export default function Chat({ roomId }: Props) {
   const [room, setRoom] = useState<IRoom>();
   const [message, setMessage] = useState<string>("");
   const [socket, setSocket] = useState<Socket | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { auth } = useStore();
+
+  const scrollContainer =()=>{
+    setTimeout(()=>{
+      if (containerRef.current) {
+        containerRef.current.scrollTo({
+          top: containerRef.current.scrollHeight,
+          behavior: "smooth" // Animación suave
+        });
+      }
+    },300)
+  }
 
   const getRoomData = useCallback(async () => {
     try {
@@ -47,11 +60,13 @@ export default function Chat({ roomId }: Props) {
     //Connnect
     socketInstance.on("connect", () => {
       getRoomData();
+      scrollContainer();
     });
 
     //Listen
     socketInstance.on("messageServer", () => {
       getRoomData();
+      scrollContainer();
     });
 
     // Disconnect
@@ -73,14 +88,15 @@ export default function Chat({ roomId }: Props) {
     event.preventDefault();
     handleSendMessage();
     getRoomData();
+    scrollContainer();
   };
 
   return (
-    <article className="bg-neutral-800 w-[85%] h-full rounded-r-sm text-white">
+    <article className=" w-[85%] h-full bg-white rounded-r-sm border-l">
       <div className="w-full flex justify-center items-center p-2">
-        <h3 className="uppercase font-semibold">{room?.room}</h3>
+        <h3 className="uppercase font-semibold text-stone-900">{room?.room}</h3>
       </div>
-      <div className=" w-full h-[400px] bg-neutral-700 overflow-auto p-2 new-scroll">
+      <div className=" w-full h-[85%] bg-neutral-100 overflow-auto p-2 new-scroll transition-all" ref={containerRef}>
         {room?.messages.length ? (
           room?.messages.map((el) => (
             <Message
@@ -98,18 +114,18 @@ export default function Chat({ roomId }: Props) {
       </div>
       <form
         onSubmit={handleSubmit}
-        className="w-full justify-center items-center flex gap-2 p-2"
+        className="w-full justify-center items-center flex gap-2 p-2 bg-white"
       >
         <input
           type="text"
           placeholder="Write your message"
-          className="outline-none text-xs w-[70%] rounded-sm border-0 p-2 transition-all focus:border-gray-400 focus:border-2 text-stone-900"
+          className="outline-none text-xs w-[70%] rounded-sm border border-stone-300 p-2 transition-all focus:border-blue-400 focus:border-2 text-stone-900"
           value={message}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             setMessage(event.target.value)
           }
         />
-        <button className="text-xs uppercase bg-blue-700 p-2 transition-all hover:bg-blue-400 rounded-sm">
+        <button className="text-xs uppercase bg-blue-700 text-white p-2 transition-all hover:bg-blue-400 rounded-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

@@ -9,11 +9,13 @@ export default function Menu({ openRoom }: Props) {
   const { rooms } = useRooms();
   const { logout } = useStore();
   const styleItem =
-    "text-sm font-semibold uppercase text-white p-2 cursor-pointer transition-all hover:bg-blue-700 w-full text-center flex justify-start items-center gap-2";
+    "text-sm font-bold uppercase p-2 cursor-pointer transition-all hover:bg-blue-500 w-full text-center flex justify-start items-center gap-2 border-b";
   return (
-    <ul className="w-[15%] flex flex-col justify-center items-center bg-neutral-900 h-full rounded-l-sm">
+    <ul className="w-[15%] flex flex-col justify-center items-center text-gray-800 h-full rounded-l-sm">
+      <h2 className="text-2xl uppercase font-bold text-slate-800">My Chats</h2>
       {rooms.map((el) => (
         <li className={styleItem} key={el.id} onClick={() => openRoom(el.id)}>
+          <div className="w-[30px] h-[30px] bg-stone-700 flex  justify-center items-center rounded-full text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -29,10 +31,12 @@ export default function Menu({ openRoom }: Props) {
             />
           </svg>
 
+          </div>
           <span>{el.room}</span>
         </li>
       ))}
       <li className={styleItem} onClick={() => logout()}>
+      <div className="w-[30px] h-[30px] bg-stone-700 flex  justify-center items-center rounded-full text-white">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -47,7 +51,7 @@ export default function Menu({ openRoom }: Props) {
             d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
           />
         </svg>
-
+      </div>
         <span>Logout</span>
       </li>
     </ul>

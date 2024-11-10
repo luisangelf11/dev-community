@@ -7,11 +7,11 @@
 }
 
 .new-scroll::-webkit-scrollbar-track {
-  background: #3f3f3f;        
+  background: #ffffff;        
 }
 
 .new-scroll::-webkit-scrollbar-thumb {
   background-color: #d1cfcf; 
   border-radius: 20px;       
-  border: 3px solid #3f3f3f;  
+  border: 3px solid #ffffff;  
 }
