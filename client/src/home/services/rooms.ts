@@ -7,3 +7,10 @@ export const getRooms =async(token: string)=>await axios.get(`${apiUrl}/rooms`, 
         'Content-Type': 'application/json'
     }
 })
+
+export const getRoom =async(id: number, token: string)=>await axios.get(`${apiUrl}/rooms/${id}`, {
+    headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    }
+})
