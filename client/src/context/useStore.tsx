@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface IAuthToken {
   username: string;
   token: string;
+  userId: number
 }
 
 type Store = {

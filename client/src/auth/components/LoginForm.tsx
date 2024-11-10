@@ -36,6 +36,7 @@ export default function LoginForm() {
       signin({
         username: form.username,
         token: data.access_token as string,
+        userId: data.userId
       });
       setForm(initialState);
       toast.success("Login completed!");

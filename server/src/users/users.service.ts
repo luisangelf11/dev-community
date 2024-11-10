@@ -25,6 +25,28 @@ export class UsersService {
     }
   }
 
+  async getUser(id: number){
+    try {
+      const user = await this.prisma.user.findFirst({
+        where:{
+          id
+        }
+      })
+      if (!user)
+        throw new NotFoundException(`This user with id ${id} is not found`);
+      const {password, ...result} = user;
+      return result;
+    } catch (error) {
+      if (error instanceof NotFoundException)
+        throw new NotFoundException(error.message);
+      if (error instanceof Error)
+        throw new HttpException(
+          `Internal server error: ${error.message}`,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+    }
+  }
+
   async createUser(user: CreateUserDto){
     try {
         const salOrRounds = 10;
